@@ -27,6 +27,10 @@ sudo echo  "extension = mongodb.so" > /etc/php/7.1/mods-available/mongo.ini
 sudo ln -s /etc/php/7.1/mods-available/mongo.ini /etc/php/7.1/fpm/conf.d/mongo.ini
 sudo ln -s /etc/php/7.1/mods-available/mongo.ini /etc/php/7.1/cli/conf.d/mongo.ini
 
+sudo echo  "extension = mongodb.so" > /etc/php/7.0/mods-available/mongo.ini
+sudo ln -s /etc/php/7.1/mods-available/mongo.ini /etc/php/7.0/fpm/conf.d/mongo.ini
+sudo ln -s /etc/php/7.1/mods-available/mongo.ini /etc/php/7.0/cli/conf.d/mongo.ini
+
 cat > /etc/systemd/system/mongodb.service <<EOL
 [Unit]
 Description=High-performance, schema-free document-oriented database
@@ -44,4 +48,4 @@ sudo systemctl enable mongodb
 sudo ufw allow 27017
 sudo sed -i "s/bindIp: .*/bindIp: 0.0.0.0/" /etc/mongod.conf
 
-sudo service nginx restart && sudo service php7.1-fpm restart
+sudo service nginx restart && sudo service php7.1-fpm restart && sudo service php7.0-fpm restart
